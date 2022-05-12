@@ -37,5 +37,7 @@ require('packer').startup(function(use)
   use 'romgrk/barbar.nvim'
   use 'akinsho/toggleterm.nvim'
   use 'saadparwaiz1/cmp_luasnip'
+  use 'tversteeg/registers.nvim' -- " in normal mode or Ctrl R to open register list
+  use 'jbyuki/venn.nvim'
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
 end)
