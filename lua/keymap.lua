@@ -77,6 +77,8 @@ vim.keymap.set('n', '<A-0>', ':BufferLast<CR>')
 vim.keymap.set('n', '<A-c>', ':BufferClose<CR>')
 -- Magic buffer-picking mode
 vim.keymap.set('n', '<C-p>', ':BufferPick<CR>')
+-- Glow preview
+vim.keymap.set('n', '<leader>md', ':Glow<CR>')
 
 -- Custom Terminal pop-ups!
 local Terminal  = require('toggleterm.terminal').Terminal

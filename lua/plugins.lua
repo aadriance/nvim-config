@@ -39,5 +39,13 @@ require('packer').startup(function(use)
   use 'saadparwaiz1/cmp_luasnip'
   use 'tversteeg/registers.nvim' -- " in normal mode or Ctrl R to open register list
   use 'jbyuki/venn.nvim'
+  use({'jakewvincent/mkdnflow.nvim',
+     config = function()
+        require('mkdnflow').setup({
+            -- Config goes here; leave blank for defaults
+        })
+     end
+  })
+  use {"ellisonleao/glow.nvim", branch = 'main'}
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
 end)
