@@ -65,3 +65,24 @@ require("toggleterm").setup{
   close_on_exit = true, -- close the terminal window when the process exits
   shell = vim.o.shell, -- change the default shell
 }
+
+-- Some extra markdown goodness. Auto save, enable by default, etc.
+require('mkdnflow').setup({
+    mappings = {
+        MkdnNextLink = {'n', '<Tab>'},
+        MkdnPrevLink = {'n', '<S-Tab>'},
+        MkdnNextHeading = {'n', '<leader>]'},
+        MkdnPrevHeading = {'n', '<leader>['},
+        MkdnGoBack = {'n', '<BS>'},
+        MkdnGoForward = {'n', '<Del>'},
+        MkdnFollowLink = {{'n', 'v'}, '<CR>'},
+        MkdnDestroyLink = {'n', '<M-CR>'},
+        MkdnYankAnchorLink = {'n', 'ya'},
+        MkdnYankFileAnchorLink = {'n', 'yfa'},
+        MkdnIncreaseHeading = {'n', '+'},
+        MkdnDecreaseHeading = {'n', '-'},
+        MkdnToggleToDo = {'n', 'xx'},
+        MkdnNewListItem = false
+    }
+})
+vim.cmd('autocmd FileType markdown set autowriteall')
