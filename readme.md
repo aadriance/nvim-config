@@ -4,6 +4,10 @@
 This is my current windows centric dev config for nvim. I daily drive Windows,
  I use to maintain a mac config as-well but I don't have time to mess with two
  set-ups.
+ 
+## Install
+
+It's windows nvim config should like at: C:\Users\YOU\AppData\Local\nvim
 
 ## Dependencies
 
