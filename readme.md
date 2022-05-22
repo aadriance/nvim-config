@@ -7,7 +7,7 @@ This is my current windows centric dev config for nvim. I daily drive Windows,
  
 ## Install
 
-It's windows nvim config should like at: C:\Users\YOU\AppData\Local\nvim
+It's windows nvim config should live at: C:\Users\YOU\AppData\Local\nvim
 
 ## Dependencies
 
@@ -27,7 +27,7 @@ There are a handful of other third party tools leveraged by my nvim config that
 * enter to create a link
 * alt enter to remove a link
 * back space to jump to previous file
-* xx to mark a to-do item
+* zz to mark a to-do item
 
 ### File exploring
 

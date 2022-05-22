@@ -66,7 +66,7 @@ require("toggleterm").setup{
   shell = vim.o.shell, -- change the default shell
 }
 
--- Some extra markdown goodness. Auto save, enable by default, etc.
+-- Some extra markdown goodness.
 require('mkdnflow').setup({
     mappings = {
         MkdnNextLink = {'n', '<Tab>'},
@@ -81,8 +81,7 @@ require('mkdnflow').setup({
         MkdnYankFileAnchorLink = {'n', 'yfa'},
         MkdnIncreaseHeading = {'n', '+'},
         MkdnDecreaseHeading = {'n', '-'},
-        MkdnToggleToDo = {'n', 'xx'},
+        MkdnToggleToDo = {'n', 'zz'},
         MkdnNewListItem = false
     }
 })
-vim.cmd('autocmd FileType markdown set autowriteall')
