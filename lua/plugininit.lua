@@ -68,6 +68,11 @@ require("toggleterm").setup{
 
 -- Some extra markdown goodness.
 require('mkdnflow').setup({
+    perspective = {
+        priority = 'current',
+        fallback = 'first',
+        root_tell = false
+    },
     mappings = {
         MkdnNextLink = {'n', '<Tab>'},
         MkdnPrevLink = {'n', '<S-Tab>'},
