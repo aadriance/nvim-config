@@ -45,7 +45,7 @@ vim.o.termguicolors = true
 vim.cmd [[colorscheme dracula]]
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menu,menuone,noselect'
 
 -- Enable background buffers. Needed to toggle term
 vim.o.hidden = true

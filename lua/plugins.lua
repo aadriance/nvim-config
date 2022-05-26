@@ -42,4 +42,6 @@ require('packer').startup(function(use)
   use 'jakewvincent/mkdnflow.nvim'
   use {"ellisonleao/glow.nvim", branch = 'main'}
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-buffer'
 end)
