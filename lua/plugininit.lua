@@ -2,7 +2,7 @@
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'dracula',
+    theme = 'catppuccin',
     component_separators = '|',
     section_separators = '',
   },
@@ -90,3 +90,5 @@ require('mkdnflow').setup({
         MkdnNewListItem = false
     }
 })
+
+require("catppuccin").setup()
