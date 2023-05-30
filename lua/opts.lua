@@ -45,3 +45,7 @@ vim.o.completeopt = 'menu,menuone,noselect'
 
 -- Enable background buffers. Needed to toggle term
 vim.o.hidden = true
+
+-- spelling
+vim.opt.spell = true
+vim.opt.spelllang = { 'en_us' }
