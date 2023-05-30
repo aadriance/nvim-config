@@ -1,51 +1,354 @@
--- Install packer
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+return {
+--ABOVE: CONFIG Complete
+   {
+        'catppuccin/nvim',
+        name = 'catppuccin',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("catppuccin").setup({
+                integrations = {
+                    indent_blankline = {
+                        enabled = true,
+                        colored_indent_levels = true,
+                    }
+                }
+            })
+            vim.cmd([[colorscheme catppuccin]])
+        end,
+   },
+   {
+      "lewis6991/gitsigns.nvim",
+      event = { "BufReadPre", "BufNewFile" },
+      opts = {
+        signs = {
+          add = { text = "▎" },
+          change = { text = "▎" },
+          delete = { text = "" },
+          topdelete = { text = "" },
+          changedelete = { text = "▎" },
+          untracked = { text = "▎" },
+        },
+        on_attach = function(buffer)
+          local gs = package.loaded.gitsigns
 
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-end
+          local function map(mode, l, r, desc)
+            vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+          end
 
-local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePost', { command = 'source <afile> | PackerCompile', group = packer_group, pattern = 'init.lua' })
-
-require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim' -- Package manager
-  use 'tpope/vim-fugitive' -- Git commands in nvim
-  use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
-  use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use {
-        'kyazdani42/nvim-tree.lua',
-        requires = {
-          'kyazdani42/nvim-web-devicons', -- optional, for file icon
+          map("n", "]h", gs.next_hunk, "Next Hunk")
+          map("n", "[h", gs.prev_hunk, "Prev Hunk")
+          map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
+          map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+          map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
+          map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
+          map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
+          map("n", "<leader>ghp", gs.preview_hunk, "Preview Hunk")
+          map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
+          map("n", "<leader>ghd", gs.diffthis, "Diff This")
+          map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
+          map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+        end,
       },
-  }
-  -- UI to select things (files, grep results, open buffers...)
-  use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
-  use 'mofiqul/dracula.nvim' -- Theme
-  use({
-	"catppuccin/nvim",
-	as = "catppuccin"
-  })
-  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-  -- Add indentation guides even on blank lines
-  use 'lukas-reineke/indent-blankline.nvim'
-  -- Add git related info in the signs columns and popups
-  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
-  -- Highlight, edit, and navigate code using a fast incremental parsing library
-  use 'nvim-treesitter/nvim-treesitter'
-  -- Additional textobjects for treesitter
-  use 'nvim-treesitter/nvim-treesitter-textobjects'
-  use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
-  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'romgrk/barbar.nvim'
-  use 'akinsho/toggleterm.nvim'
-  use 'saadparwaiz1/cmp_luasnip'
-  use 'tversteeg/registers.nvim' -- " in normal mode or Ctrl R to open register list
-  use 'jbyuki/venn.nvim'
-  use 'jakewvincent/mkdnflow.nvim'
-  use {"ellisonleao/glow.nvim", branch = 'main'}
-  use 'L3MON4D3/LuaSnip' -- Snippets plugin
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-buffer'
-end)
+    },
+    {
+      "echasnovski/mini.comment", -- gc, comment selection, gcc comment line
+      version = '*',
+      config = true
+    },
+    { "MunifTanjim/nui.nvim", lazy = true },
+    {
+      "nvim-telescope/telescope.nvim",
+      dependencies = {'nvim-lua/plenary.nvim'},
+      commit = vim.fn.has("nvim-0.9.0") == 0 and "057ee0f8783" or nil,
+      cmd = "Telescope",
+      version = false, -- telescope did only one release, so use HEAD for now
+      keys = {
+        { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
+        --{ "<leader>/", require('telescope.builtin').live_grep, desc = "Grep (root dir)" },
+        { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+        --{ "<leader><space>", require('telescope.builtin').files, desc = "Find Files (root dir)" },
+        -- find
+        { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+        --{ "<leader>ff", require('telescope.builtin').files, desc = "Find Files (root dir)" },
+        --{ "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
+        { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
+        --{ "<leader>fR", Util.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
+        -- git
+        { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
+        { "<leader>gs", "<cmd>Telescope git_status<CR>", desc = "status" },
+        -- search
+        { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
+        { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
+        { "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+        { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
+        { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
+        { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
+        --{ "<leader>sg", Util.telescope("live_grep"), desc = "Grep (root dir)" },
+        --{ "<leader>sG", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
+        { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
+        { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
+        { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
+        { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
+        { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
+        { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
+        { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
+        --{ "<leader>sw", Util.telescope("grep_string"), desc = "Word (root dir)" },
+        --{ "<leader>sW", Util.telescope("grep_string", { cwd = false }), desc = "Word (cwd)" },
+        --{ "<leader>uC", Util.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
+        --{
+          --"<leader>ss",
+          --Util.telescope("lsp_document_symbols", {
+            --symbols = {
+              --"Class",
+              --"Function",
+              --"Method",
+              --"Constructor",
+              --"Interface",
+              --"Module",
+              --"Struct",
+              --"Trait",
+              --"Field",
+              --"Property",
+            --},
+          --}),
+          --desc = "Goto Symbol",
+        --},
+        --{
+          --"<leader>sS",
+          --Util.telescope("lsp_dynamic_workspace_symbols", {
+            --symbols = {
+              --"Class",
+              --"Function",
+              --"Method",
+              --"Constructor",
+              --"Interface",
+              --"Module",
+              --"Struct",
+              --"Trait",
+              --"Field",
+              --"Property",
+            --},
+          --}),
+          --desc = "Goto Symbol (Workspace)",
+        --},
+      },
+      opts = {
+        defaults = {
+          prompt_prefix = " ",
+          selection_caret = " ",
+          mappings = {
+            i = {
+              ["<c-t>"] = function(...)
+                return require("trouble.providers.telescope").open_with_trouble(...)
+              end,
+              ["<a-t>"] = function(...)
+                return require("trouble.providers.telescope").open_selected_with_trouble(...)
+              end,
+              ["<a-i>"] = function()
+                local action_state = require("telescope.actions.state")
+                local line = action_state.get_current_line()
+                Util.telescope("find_files", { no_ignore = true, default_text = line })()
+              end,
+              ["<a-h>"] = function()
+                local action_state = require("telescope.actions.state")
+                local line = action_state.get_current_line()
+                Util.telescope("find_files", { hidden = true, default_text = line })()
+              end,
+              ["<C-Down>"] = function(...)
+                return require("telescope.actions").cycle_history_next(...)
+              end,
+              ["<C-Up>"] = function(...)
+                return require("telescope.actions").cycle_history_prev(...)
+              end,
+              ["<C-f>"] = function(...)
+                return require("telescope.actions").preview_scrolling_down(...)
+              end,
+              ["<C-b>"] = function(...)
+                return require("telescope.actions").preview_scrolling_up(...)
+              end,
+            },
+            n = {
+              ["q"] = function(...)
+                return require("telescope.actions").close(...)
+              end,
+            },
+          },
+        },
+      },
+    },
+    {
+      "nvim-neo-tree/neo-tree.nvim",
+       dependencies = {'kyazdani42/nvim-web-devicons'},
+      cmd = "Neotree",
+      keys = {
+        {
+          "<leader>fe",
+          function()
+            require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
+          end,
+          desc = "Explorer NeoTree (cwd)",
+        },
+        { "<leader>e", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
+      },
+      deactivate = function()
+        vim.cmd([[Neotree close]])
+      end,
+      init = function()
+        vim.g.neo_tree_remove_legacy_commands = 1
+        if vim.fn.argc() == 1 then
+          local stat = vim.loop.fs_stat(vim.fn.argv(0))
+          if stat and stat.type == "directory" then
+            require("neo-tree")
+          end
+        end
+      end,
+      opts = {
+        filesystem = {
+          bind_to_cwd = false,
+          follow_current_file = true,
+          use_libuv_file_watcher = true,
+        },
+        window = {
+          mappings = {
+            ["<space>"] = "none",
+          },
+        },
+        default_component_configs = {
+          indent = {
+            with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+            expander_collapsed = "",
+            expander_expanded = "",
+            expander_highlight = "NeoTreeExpander",
+          },
+        },
+      },
+      config = function(_, opts)
+        require("neo-tree").setup(opts)
+        vim.api.nvim_create_autocmd("TermClose", {
+          pattern = "*lazygit",
+          callback = function()
+            if package.loaded["neo-tree.sources.git_status"] then
+              require("neo-tree.sources.git_status").refresh()
+            end
+          end,
+        })
+      end,
+    },
+    {
+        'nvim-lualine/lualine.nvim', -- Fancier statusline
+        opts = {extensionts = {'neo-tree', 'lazy'}}
+    },
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        config = function()
+            vim.opt.list = true
+            vim.opt.listchars:append "eol:↴"
+
+            require('indent_blankline').setup {
+              show_trailing_blankline_indent = false,
+              char_highlight_list = {
+                "IndentBlanklineIndent1",
+                "IndentBlanklineIndent2",
+                "IndentBlanklineIndent3",
+                "IndentBlanklineIndent4",
+                "IndentBlanklineIndent5",
+                "IndentBlanklineIndent6",
+              },
+            }
+        end,
+    },
+    {
+      "nvim-treesitter/nvim-treesitter",
+      version = false, -- last release is way too old and doesn't work on Windows
+      build = ":TSUpdate",
+      event = { "BufReadPost", "BufNewFile" },
+      dependencies = {
+        {
+          "nvim-treesitter/nvim-treesitter-textobjects",
+          init = function()
+            -- PERF: no need to load the plugin, if we only need its queries for mini.ai
+            local plugin = require("lazy.core.config").spec.plugins["nvim-treesitter"]
+            local opts = require("lazy.core.plugin").values(plugin, "opts", false)
+            local enabled = false
+            if opts.textobjects then
+              for _, mod in ipairs({ "move", "select", "swap", "lsp_interop" }) do
+                if opts.textobjects[mod] and opts.textobjects[mod].enable then
+                  enabled = true
+                  break
+                end
+              end
+            end
+            if not enabled then
+              require("lazy.core.loader").disable_rtp_plugin("nvim-treesitter-textobjects")
+            end
+          end,
+        },
+      },
+      keys = {
+        { "<c-space>", desc = "Increment selection" },
+        { "<bs>", desc = "Decrement selection", mode = "x" },
+      },
+      opts = {
+        highlight = { enable = true },
+        indent = { enable = true },
+        ensure_installed = {
+          "bash",
+          "c",
+          "html",
+          "javascript",
+          "json",
+          "lua",
+          "luadoc",
+          "luap",
+          "markdown",
+          "markdown_inline",
+          "python",
+          "query",
+          "regex",
+          "rust",
+          "tsx",
+          "typescript",
+          "vim",
+          "vimdoc",
+          "yaml",
+        },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "<C-space>",
+            node_incremental = "<C-space>",
+            scope_incremental = false,
+            node_decremental = "<bs>",
+          },
+        },
+      },
+      config = function(_, opts)
+        if type(opts.ensure_installed) == "table" then
+          local added = {}
+          opts.ensure_installed = vim.tbl_filter(function(lang)
+            if added[lang] then
+              return false
+            end
+            added[lang] = true
+            return true
+          end, opts.ensure_installed)
+        end
+        require("nvim-treesitter.configs").setup(opts)
+      end,
+    },
+-- ABOVE IS THE LIVING, BELOW MORE WORK NEEDED
+   'neovim/nvim-lspconfig', -- Collection of configurations for built-in LSP client
+   'hrsh7th/nvim-cmp', -- Autocompletion plugin
+   'hrsh7th/cmp-nvim-lsp',
+   'romgrk/barbar.nvim',
+   'akinsho/toggleterm.nvim',
+   'saadparwaiz1/cmp_luasnip',
+   'tversteeg/registers.nvim', -- " in normal mode or Ctrl R to open register list
+   'jbyuki/venn.nvim',
+   'jakewvincent/mkdnflow.nvim',
+   "ellisonleao/glow.nvim",
+   'L3MON4D3/LuaSnip', -- Snippets plugin
+   'hrsh7th/cmp-path',
+   'hrsh7th/cmp-buffer',
+}

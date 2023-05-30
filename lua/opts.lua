@@ -13,9 +13,6 @@ vim.o.shiftwidth = 4
 --80 cols of code is enough for anyone!
 vim.opt.colorcolumn="80"
 
---Show trailing spaces
-vim.o.list = true
-
 --Keep cursor centerish, but don't move for small adjustments
 vim.o.scrolloff = 10
 
@@ -42,7 +39,6 @@ vim.wo.signcolumn = 'yes'
 
 --Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme catppuccin]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menu,menuone,noselect'

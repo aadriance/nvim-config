@@ -8,26 +8,6 @@ require('lualine').setup {
   },
 }
 
---Enable Comment.nvim
-require('Comment').setup()
-
--- Indent blankline
-require('indent_blankline').setup {
-  char = '┊',
-  show_trailing_blankline_indent = false,
-}
-
--- Gitsigns
-require('gitsigns').setup {
-  signs = {
-    add = { text = '+' },
-    change = { text = '~' },
-    delete = { text = '_' },
-    topdelete = { text = '‾' },
-    changedelete = { text = '~' },
-  },
-}
-
 -- Telescope
 require('telescope').setup {
   defaults = {
@@ -40,13 +20,13 @@ require('telescope').setup {
   },
 }
 
-require'nvim-tree'.setup {
-  actions = {
-    open_file = {
-      quit_on_open = true,
-    }
-  },
-}
+--require'nvim-tree'.setup {
+  --actions = {
+    --open_file = {
+      --quit_on_open = true,
+    --}
+  --},
+--}
 vim.g.nvim_tree_quit_on_open = 1
 
 -- Toggle Term
@@ -91,4 +71,3 @@ require('mkdnflow').setup({
     }
 })
 
-require("catppuccin").setup()
