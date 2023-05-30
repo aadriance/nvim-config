@@ -1,5 +1,4 @@
 return {
---ABOVE: CONFIG Complete
    {
         'catppuccin/nvim',
         name = 'catppuccin',
@@ -237,7 +236,13 @@ return {
     },
     {
         'nvim-lualine/lualine.nvim', -- Fancier statusline
-        opts = {extensionts = {'neo-tree', 'lazy'}}
+        opts = {
+            icons_enabled = true,
+            theme = 'catppuccin',
+            component_separators = '|',
+            section_separators = '',
+            extensionts = {'neo-tree', 'lazy'}
+        }
     },
     {
         "lukas-reineke/indent-blankline.nvim",
@@ -337,16 +342,59 @@ return {
         require("nvim-treesitter.configs").setup(opts)
       end,
     },
--- ABOVE IS THE LIVING, BELOW MORE WORK NEEDED
+    {
+       'akinsho/toggleterm.nvim',
+        opts = {
+          -- size can be a number or function which is passed the current terminal
+          size = 20,
+          open_mapping = [[<c-t>]],
+          hide_numbers = true, -- hide the number column in toggleterm buffers
+          shade_filetypes = {},
+          shade_terminals = true,
+          shading_factor = '1', -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+          start_in_insert = true,
+          insert_mappings = true, -- whether or not the open mapping applies in insert mode
+          persist_size = true,
+          direction = 'float',
+          close_on_exit = true, -- close the terminal window when the process exits
+          shell = vim.o.shell, -- change the default shell
+        }
+    },
+    {
+       'jakewvincent/mkdnflow.nvim',
+        ft = "markdown",
+        opts = {
+            perspective = {
+                priority = 'current',
+                fallback = 'first',
+                root_tell = false
+            },
+            mappings = {
+                MkdnNextLink = {'n', '<Tab>'},
+                MkdnPrevLink = {'n', '<S-Tab>'},
+                MkdnNextHeading = {'n', '<leader>]'},
+                MkdnPrevHeading = {'n', '<leader>['},
+                MkdnGoBack = {'n', '<BS>'},
+                MkdnGoForward = {'n', '<Del>'},
+                MkdnFollowLink = {{'n', 'v'}, '<CR>'},
+                MkdnDestroyLink = {'n', '<M-CR>'},
+                MkdnYankAnchorLink = {'n', 'ya'},
+                MkdnYankFileAnchorLink = {'n', 'yfa'},
+                MkdnIncreaseHeading = {'n', '+'},
+                MkdnDecreaseHeading = {'n', '-'},
+                MkdnToggleToDo = {'n', 'zz'},
+                MkdnNewListItem = false
+            }
+        }
+    },
+-- ABOVE IS THE LIVING, BELOW MORE CONFIG NEEDED
    'neovim/nvim-lspconfig', -- Collection of configurations for built-in LSP client
    'hrsh7th/nvim-cmp', -- Autocompletion plugin
    'hrsh7th/cmp-nvim-lsp',
    'romgrk/barbar.nvim',
-   'akinsho/toggleterm.nvim',
    'saadparwaiz1/cmp_luasnip',
    'tversteeg/registers.nvim', -- " in normal mode or Ctrl R to open register list
    'jbyuki/venn.nvim',
-   'jakewvincent/mkdnflow.nvim',
    "ellisonleao/glow.nvim",
    'L3MON4D3/LuaSnip', -- Snippets plugin
    'hrsh7th/cmp-path',
