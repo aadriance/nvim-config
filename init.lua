@@ -18,5 +18,4 @@ vim.g.maplocalleader = ' '
 
 require("lazy").setup("plugins")
 require 'opts'
-require 'treesitterinit'
 require 'keymap'
