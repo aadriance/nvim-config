@@ -478,6 +478,7 @@ return {
         ensure_installed = {
           "stylua",
           "shfmt",
+          "rust-analyzer",
         },
       },
       config = function(_, opts)

@@ -20,4 +20,3 @@ require("lazy").setup("plugins")
 require 'opts'
 require 'treesitterinit'
 require 'keymap'
-require 'lsp'
