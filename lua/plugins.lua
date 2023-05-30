@@ -344,11 +344,36 @@ return {
             }
         }
     },
+    {
+       'romgrk/barbar.nvim',
+        keys = {
+            -- Move to previous/next
+            { "<A-,>", ":BufferPrevious<CR>", desc = "Previous Buffer" },
+            { "<A-.>", ":BufferNext<CR>", desc = "Previous Buffer" },
+            -- Re-order to previous/next
+            { '<A-<>', ':BufferMovePrevious<CR>', desc = ""},
+            {'<A->>', ' :BufferMoveNext<CR>', desc = ""},
+            -- Goto buffer in position...
+            {'<A-1>', ':BufferGoto 1<CR>', desc = ""},
+            {'<A-2>', ':BufferGoto 2<CR>', desc = ""},
+            {'<A-3>', ':BufferGoto 3<CR>', desc = ""},
+            {'<A-4>', ':BufferGoto 4<CR>', desc = ""},
+            {'<A-5>', ':BufferGoto 5<CR>', desc = ""},
+            {'<A-6>', ':BufferGoto 6<CR>', desc = ""},
+            {'<A-7>', ':BufferGoto 7<CR>', desc = ""},
+            {'<A-8>', ':BufferGoto 8<CR>', desc = ""},
+            {'<A-9>', ':BufferGoto 9<CR>', desc = ""},
+            {'<A-0>', ':BufferLast<CR>', desc = ""},
+            -- Close buffer
+            {'<A-c>', ':BufferClose<CR>', desc = ""},
+            -- Magic buffer-picking mode
+            {'<C-p>', ':BufferPick<CR>', desc = ""},
+        },
+    },
 -- ABOVE IS THE LIVING, BELOW MORE CONFIG NEEDED
    'neovim/nvim-lspconfig', -- Collection of configurations for built-in LSP client
    'hrsh7th/nvim-cmp', -- Autocompletion plugin
    'hrsh7th/cmp-nvim-lsp',
-   'romgrk/barbar.nvim',
    'saadparwaiz1/cmp_luasnip',
    'tversteeg/registers.nvim', -- " in normal mode or Ctrl R to open register list
    'jbyuki/venn.nvim',
