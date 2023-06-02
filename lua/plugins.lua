@@ -872,7 +872,7 @@ return {
 				},
 			},
 			presets = {
-				bottom_search = true,
+				bottom_search = false,
 				command_palette = true,
 				long_message_to_split = true,
 				inc_rename = true,
@@ -927,4 +927,26 @@ return {
 		end,
 	},
 	{ "tpope/vim-repeat", event = "VeryLazy" },
+	{
+		"folke/drop.nvim",
+		config = true,
+	},
+	{
+		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+		config = function()
+			vim.api.nvim_create_autocmd("InsertEnter", {
+				callback = function()
+					vim.diagnostic.hide()
+				end,
+			})
+
+			vim.api.nvim_create_autocmd("ModeChanged", {
+				pattern = "i:*",
+				callback = function()
+					vim.diagnostic.show()
+				end,
+			})
+			require("lsp_lines").setup()
+		end,
+	},
 }
