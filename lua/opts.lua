@@ -11,7 +11,7 @@ vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 
 --80 cols of code is enough for anyone!
-vim.opt.colorcolumn="80"
+vim.opt.colorcolumn = "80"
 
 --Keep cursor centerish, but don't move for small adjustments
 vim.o.scrolloff = 10
@@ -21,7 +21,7 @@ vim.o.splitright = true
 vim.o.splitbelow = true
 
 --Enable mouse mode
-vim.o.mouse = 'a'
+vim.o.mouse = "a"
 
 --Enable break indent
 vim.o.breakindent = true
@@ -35,17 +35,17 @@ vim.o.smartcase = true
 
 --Decrease update time
 vim.o.updatetime = 250
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = "yes"
 
 --Set colorscheme
 vim.o.termguicolors = true
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menu,menuone,noselect'
+vim.o.completeopt = "menu,menuone,noselect"
 
 -- Enable background buffers. Needed to toggle term
 vim.o.hidden = true
 
 -- spelling
 vim.opt.spell = true
-vim.opt.spelllang = { 'en_us' }
+vim.opt.spelllang = { "en_us" }
