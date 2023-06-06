@@ -163,6 +163,16 @@ return {
 					expander_highlight = "NeoTreeExpander",
 				},
 			},
+            event_handlers = {
+              {
+                event = "file_opened",
+                handler = function()
+                  --auto close
+                  require("neo-tree").close_all()
+                end
+              },
+
+            },
 		},
 		config = function(_, opts)
 			require("neo-tree").setup(opts)
@@ -340,6 +350,8 @@ return {
 			-- Re-order to previous/next
 			{ "<A-<>", ":BufferMovePrevious<CR>", desc = "" },
 			{ "<A->>", " :BufferMoveNext<CR>", desc = "" },
+            {"<leader><tab>]", ":BufferMoveNext<cr>", desc = "Next Tab" },
+            {"<leader><tab>[", ":BufferMovePrevious<cr>", desc = "Previous Tab" },
 			-- Goto buffer in position...
 			{ "<A-1>", ":BufferGoto 1<CR>", desc = "" },
 			{ "<A-2>", ":BufferGoto 2<CR>", desc = "" },
@@ -351,8 +363,11 @@ return {
 			{ "<A-8>", ":BufferGoto 8<CR>", desc = "" },
 			{ "<A-9>", ":BufferGoto 9<CR>", desc = "" },
 			{ "<A-0>", ":BufferLast<CR>", desc = "" },
+            {"<leader><tab>l", ":BufferLast<cr>", desc = "Last Tab" },
+            {"<leader><tab>f", ":BufferFirst<cr>", desc = "First Tab" },
 			-- Close buffer
 			{ "<A-c>", ":BufferClose<CR>", desc = "" },
+            {"<leader><tab>d", ":BufferClose<cr>", desc = "Close Tab" },
 			-- Magic buffer-picking mode
 			{ "<C-p>", ":BufferPick<CR>", desc = "" },
 		},
@@ -734,7 +749,6 @@ return {
 			})
 		end,
 	},
-	"jbyuki/venn.nvim",
 	"ellisonleao/glow.nvim",
 	{
 		"folke/which-key.nvim",
@@ -748,7 +762,6 @@ return {
 				["]"] = { name = "+next" },
 				["["] = { name = "+prev" },
 				["<leader><tab>"] = { name = "+tabs" },
-				["<leader>b"] = { name = "+buffer" },
 				["<leader>c"] = { name = "+code" },
 				["<leader>f"] = { name = "+file/find" },
 				["<leader>g"] = { name = "+git" },
@@ -766,13 +779,6 @@ return {
 			wk.setup(opts)
 			wk.register(opts.defaults)
 		end,
-	},
-	{
-		"nvim-pack/nvim-spectre",
-  -- stylua: ignore
-  keys = {
-    { "<leader>sr", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
-  },
 	},
 	{
 		"ggandor/leap.nvim",
