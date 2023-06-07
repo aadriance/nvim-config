@@ -10,3 +10,8 @@ vim.o.scrolloff = 10
 -- spelling
 vim.opt.spell = true
 vim.opt.spelllang = { "en_us" }
+
+--Tabs are not welcome here
+vim.o.expandtab = true
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
