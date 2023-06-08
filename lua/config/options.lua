@@ -12,6 +12,8 @@ vim.opt.spell = true
 vim.opt.spelllang = { "en_us" }
 
 --Tabs are not welcome here
-vim.o.expandtab = true
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
+if vim.bo.filetype == "c" then
+  vim.o.expandtab = true
+  vim.o.tabstop = 4
+  vim.o.shiftwidth = 4
+end

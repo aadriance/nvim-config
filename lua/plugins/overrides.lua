@@ -1,3 +1,4 @@
+local Util = require("lazyvim.util")
 return {
   {
     "folke/edgy.nvim",
@@ -51,6 +52,14 @@ return {
         "IndentBlanklineIndent5",
         "IndentBlanklineIndent6",
       },
+    },
+  },
+  {
+    --override some keymaps
+    "nvim-telescope/telescope.nvim",
+    keys = {
+      { "<leader> ", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
+      { "<leader><space>", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
     },
   },
 }
