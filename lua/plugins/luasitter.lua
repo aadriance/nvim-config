@@ -57,16 +57,4 @@ return {
       }))
     end,
   },
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    opts = {
-      sources = {
-        require("null-ls").builtins.completion.spell,
-        require("null-ls").builtins.formatting.stylua,
-        require("null-ls").builtins.diagnostics.eslint,
-        require("null-ls").builtins.diagnostics.codespell,
-        require("null-ls").builtins.formatting.codespell,
-      },
-    },
-  },
 }

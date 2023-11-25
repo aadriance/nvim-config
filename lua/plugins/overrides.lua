@@ -30,36 +30,15 @@ return {
     },
   },
   {
-    "catppuccin",
+    "nvimtools/none-ls.nvim",
     opts = {
-      integrations = {
-        indent_blankline = {
-          enabled = true,
-          colored_indent_levels = true,
-        },
+      sources = {
+        require("null-ls").builtins.completion.spell,
+        require("null-ls").builtins.formatting.stylua,
+        require("null-ls").builtins.diagnostics.eslint,
+        require("null-ls").builtins.diagnostics.codespell,
+        require("null-ls").builtins.formatting.codespell,
       },
-    },
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    opts = {
-      show_trailing_blankline_indent = false,
-      char_highlight_list = {
-        "IndentBlanklineIndent1",
-        "IndentBlanklineIndent2",
-        "IndentBlanklineIndent3",
-        "IndentBlanklineIndent4",
-        "IndentBlanklineIndent5",
-        "IndentBlanklineIndent6",
-      },
-    },
-  },
-  {
-    --override some keymaps
-    "nvim-telescope/telescope.nvim",
-    keys = {
-      { "<leader> ", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
-      { "<leader><space>", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
     },
   },
 }
