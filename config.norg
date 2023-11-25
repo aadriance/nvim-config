@@ -1,0 +1,14 @@
+* NVIM Configuration
+
+** Giving up on confiddling
+
+   I've historyically done a lot of fiddling with my config. This is my official divorce with config fiddling.
+   I used helix for about 6 months, to try and break my addiciton. It was nice to not be fiddling constantly.
+   This config uses {https://www.lazyvim.org}[LazyVim] to do all the essential things.
+
+** Modifications
+
+   - Neorg: Smart notes to do lots of things
+   - Catppuccin: colors are pretty
+   - Close file tree on file open
+
