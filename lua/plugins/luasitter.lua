@@ -23,6 +23,7 @@ return {
         "vim",
         "vimdoc",
         "yaml",
+        "norg_meta",
       },
     },
   },

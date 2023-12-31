@@ -15,6 +15,9 @@ return {
               },
             },
           },
+          ["core.integrations.treesitter"] = {},
+          ["core.neorgcmd"] = {},
+          ["core.tangle"] = {},
         },
       })
     end,
